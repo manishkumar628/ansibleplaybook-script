@@ -1,0 +1,39 @@
+---
+- name: installation java & maven & tomcat & git & docker
+  hosts: localhost
+  become: true
+  tasks:
+
+    - name: installation java
+      package:
+        name: openjdk-17-jre
+        state: present
+
+    - name: verify java installation
+      command: java --version
+      register: java_version
+
+    - name: show java version
+      debug:
+        msg: "java is installed thank you foryour valuable information:  {{ java_version.stdout }}"
+
+    - name: installation maven
+      apt:
+        name: maven
+        state: present
+    - name: verify maven installation
+      command: mvn -version
+      register: maven_version
+    - name: show maven version
+      debug:
+        msg: "mvn is installed:  {{ maven_version.stdout }}"
+    - name: installation git
+      apt:
+        name: git
+
+    - name: show git version
+      command: git --version
+      register: git_version
+    - name: show git version
+      debug:
+        msg: "git is installed:  {{ git_version.stdout }}"
