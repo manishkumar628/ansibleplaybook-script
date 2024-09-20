@@ -1,0 +1,31 @@
+---
+- name: install maven & java
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: installation java
+      package:
+        name: openjdk-17-jdk
+        state: present
+
+    - name: verification java installation
+      command: java -version
+      register: java_version
+    
+
+    - name: show java version
+      debug:
+        msg: "java version is installed:  {{ java_version.stdout }}"
+
+    - name: installation maven
+      apt:
+        name: maven
+        state: present
+        update_cache: true
+    - name: verify maven installation
+      command: mvn -version
+      register: maven_version
+
+    - name: show maven version
+      debug:
+        msg: "maven is installed: {{ maven_version.stdout }}"

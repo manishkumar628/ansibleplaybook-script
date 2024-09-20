@@ -1,0 +1,17 @@
+---
+- name: install java
+  hosts: localhost
+  become: true
+  tasks:
+    - name: installation java
+      package:
+        name: openjdk-11-jdk
+        state: present
+
+    - name: verify java installation
+      command: java -version
+      register: java_version
+    
+    - name: show java version
+      debug:
+        msg: "java version installed: {{ java_version.stdout }}"

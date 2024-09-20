@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+    - name: install tomcat9
+      apt:
+        name: tomcat9
+        state: present
+        update_cache: true
+    - name: installation git
+      apt:
+        name: git
+        state: present
+    - name: installation maven
+      apt:
+        name: maven
+        state: present
+        update_cache: true
+
